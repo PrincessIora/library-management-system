@@ -1,5 +1,7 @@
 package com.manage.lms;
 
+import com.manage.lms.library.application.service.BookService;
+import com.manage.lms.library.domain.exception.ValidationException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,6 +24,7 @@ public class NewBookController {
     public Scene panelScene;
     public static Connection connection;
     public static TableView<Books> booksTable;
+    BookService bookService;
 
     // loads scene for adding book
     void addBook(Connection conn,TableView<Books> adminBooksTable){
@@ -36,21 +39,22 @@ public class NewBookController {
         }
     }
 
-    // updating DB with new book detail
-    public void Book2DB() throws SQLException, IOException {
-        PreparedStatement newBook = connection.prepareStatement("INSERT INTO Books VALUES(?,?,?,?)");
-        newBook.setString(1,newBookName.getText());
-        newBook.setString(2,newBookAuthor.getText());
-        newBook.setInt(3,Integer.parseInt(newBookYear.getText()));
-        newBook.setInt(4,Integer.parseInt(newBookStocks.getText()));
-        newBook.execute();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("adminPanel.fxml"));
-        Main.mainStage.setScene(new Scene(fxmlLoader.load()));
-    }
+    public void Book2DB() {
 
-    // cancel button back to admin panel
-    public void cancelNewBook() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("adminPanel.fxml"));
-        Main.mainStage.setScene(new Scene(fxmlLoader.load()));
+        try {
+
+            bookService.createBook(
+                    newBookName.getText(),
+                    newBookAuthor.getText(),
+                    Integer.parseInt(newBookYear.getText())
+            );
+
+            // navigate back to the book screen
+
+        } catch (ValidationException e) {
+
+            newBookError.setText(e.getMessage());
+
+        }
     }
 }
