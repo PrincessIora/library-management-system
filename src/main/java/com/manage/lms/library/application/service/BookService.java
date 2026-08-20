@@ -103,7 +103,7 @@ public class BookService {
     }
 
     private void validateBookInformation(String title, String author, int year) {
-        if (title.isBlank()) {
+        if (title == null || title.isBlank()) {
             throw new ValidationException("Book title is required.");
         }
 

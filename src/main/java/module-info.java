@@ -10,4 +10,8 @@ module com.manage.lms {
 
     opens com.manage.lms to javafx.fxml;
     exports com.manage.lms;
+    exports com.manage.lms.library.domain.repository;
+    exports com.manage.lms.library.domain.model;
+    exports com.manage.lms.library.application.service;
+    exports com.manage.lms.library.domain.exception;
 }

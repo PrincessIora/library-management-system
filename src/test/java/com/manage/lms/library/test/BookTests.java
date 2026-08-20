@@ -12,10 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BookTests {
 
-    // ============================================================
-    // BOOK CREATION
-    // ============================================================
-
     @Test
     void createBookCreatesBook() {
 
@@ -75,10 +71,6 @@ public class BookTests {
         assertEquals(BookStatus.AVAILABLE, book.getStatus());
     }
 
-
-    // ============================================================
-    // BOOK VALIDATION
-    // ============================================================
 
     @Test
     void createBookRejectsMissingTitle() {
@@ -197,10 +189,6 @@ public class BookTests {
     }
 
 
-    // ============================================================
-    // LIST BOOKS
-    // ============================================================
-
     @Test
     void getBooksReturnsAllBooks() {
 
@@ -238,10 +226,6 @@ public class BookTests {
     }
 
 
-    // ============================================================
-    // GET SINGLE BOOK
-    // ============================================================
-
     @Test
     void getBookReturnsBookById() {
 
@@ -274,11 +258,6 @@ public class BookTests {
                 () -> service.getBook(999)
         );
     }
-
-
-    // ============================================================
-    // EDIT BOOK
-    // ============================================================
 
     @Test
     void updateBookChangesBookInformation() {
@@ -393,10 +372,6 @@ public class BookTests {
     }
 
 
-    // ============================================================
-    // DELETE BOOK
-    // ============================================================
-
     @Test
     void deleteAvailableBookRemovesBook() {
 
@@ -486,10 +461,6 @@ public class BookTests {
         );
     }
 
-
-    // ============================================================
-    // SEARCH BY TITLE
-    // ============================================================
 
     @Test
     void searchByTitleFindsMatchingBooks() {
@@ -609,11 +580,6 @@ public class BookTests {
         );
     }
 
-
-    // ============================================================
-    // SEARCH BY AUTHOR
-    // ============================================================
-
     @Test
     void searchByAuthorFindsMatchingBooks() {
 
@@ -722,10 +688,6 @@ public class BookTests {
         );
     }
 
-
-    // ============================================================
-    // SORT BY YEAR
-    // ============================================================
 
     @Test
     void getBooksOrderedByYearSortsOldestFirst() {
