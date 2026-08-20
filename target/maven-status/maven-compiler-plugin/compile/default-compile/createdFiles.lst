@@ -1,0 +1,8 @@
+com\manage\lms\Main.class
+com\manage\lms\BooksAdminController.class
+com\manage\lms\NewBookController.class
+com\manage\lms\AdminLoginController.class
+com\manage\lms\BooksUserController.class
+module-info.class
+com\manage\lms\Books.class
+com\manage\lms\UserLoginSignupController.class
