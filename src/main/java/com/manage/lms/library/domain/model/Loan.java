@@ -81,4 +81,11 @@ public class Loan {
     public void setReturnedDate(LocalDateTime returnedDate) {
         this.returnedDate = returnedDate;
     }
+
+    public boolean isOverdue() {
+        return returnedDate == null &&
+                dueDate.isBefore(LocalDate.now());
+    }
+
+
 }

@@ -60,4 +60,39 @@ public class InMemoryLoanRepository implements LoanRepository {
 
         return new ArrayList<>(loans);
     }
+
+    @Override
+    public List<Loan> findActiveLoans() {
+
+        return loans.stream()
+                .filter(loan -> loan.getReturnedDate() == null)
+                .toList();
+    }
+
+    @Override
+    public List<Loan> findOverdueLoans() {
+
+        return loans.stream()
+                .filter(loan -> loan.getReturnedDate() == null)
+                .filter(Loan::isOverdue)
+                .toList();
+    }
+
+    @Override
+    public List<Loan> findByMemberId(int memberId) {
+
+        return loans.stream()
+                .filter(loan -> loan.getMemberId() == memberId)
+                .toList();
+    }
+
+    @Override
+    public List<Loan> findByBookId(int bookId) {
+
+        return loans.stream()
+                .filter(loan -> loan.getBookId() == bookId)
+                .toList();
+    }
+
+
 }

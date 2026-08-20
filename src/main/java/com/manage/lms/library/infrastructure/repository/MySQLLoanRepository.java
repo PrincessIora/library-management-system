@@ -209,24 +209,7 @@ public class MySQLLoanRepository implements LoanRepository {
                 FROM loans
                 """;
 
-        List<Loan> loans = new ArrayList<>();
-
-        try (PreparedStatement statement =
-                     connection.prepareStatement(sql);
-             ResultSet result = statement.executeQuery()) {
-
-            while (result.next()) {
-                loans.add(mapLoan(result));
-            }
-
-            return loans;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(
-                    "Unable to retrieve loans.",
-                    e
-            );
-        }
+        return findLoans(sql);
     }
 
     private Loan mapLoan(ResultSet result)
@@ -252,4 +235,122 @@ public class MySQLLoanRepository implements LoanRepository {
                         : returnedTimestamp.toLocalDateTime()
         );
     }
+
+    @Override
+    public List<Loan> findActiveLoans() {
+
+        String sql = """
+                SELECT id,
+                       book_id,
+                       member_id,
+                       borrowed_date,
+                       due_date,
+                       returned_date
+                FROM loans
+                WHERE returned_date IS NULL
+                """;
+
+        return findLoans(sql);
+    }
+
+    @Override
+    public List<Loan> findOverdueLoans() {
+
+        String sql = """
+                SELECT id,
+                       book_id,
+                       member_id,
+                       borrowed_date,
+                       due_date,
+                       returned_date
+                FROM loans
+                WHERE returned_date IS NULL
+                  AND due_date < CURRENT_DATE
+                """;
+
+        return findLoans(sql);
+    }
+
+    private List<Loan> findLoans(String sql) {
+
+        List<Loan> loans = new ArrayList<>();
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(sql);
+             ResultSet result = statement.executeQuery()) {
+
+            while (result.next()) {
+                loans.add(mapLoan(result));
+            }
+
+            return loans;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                    "Unable to retrieve loans.",
+                    e
+            );
+        }
+    }
+
+    @Override
+    public List<Loan> findByMemberId(int memberId) {
+
+        String sql = """
+                SELECT id,
+                       book_id,
+                       member_id,
+                       borrowed_date,
+                       due_date,
+                       returned_date
+                FROM loans
+                WHERE member_id = ?
+                """;
+
+        return findLoansWithId(sql, memberId);
+    }
+
+    private List<Loan> findLoansWithId(String sql, int id) {
+
+        List<Loan> loans = new ArrayList<>();
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+
+            try (ResultSet result = statement.executeQuery()) {
+
+                while (result.next()) {
+                    loans.add(mapLoan(result));
+                }
+            }
+
+            return loans;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                    "Unable to retrieve loans.",
+                    e
+            );
+        }
+    }
+
+    @Override
+    public List<Loan> findByBookId(int bookId) {
+
+        String sql = """
+                SELECT id,
+                       book_id,
+                       member_id,
+                       borrowed_date,
+                       due_date,
+                       returned_date
+                FROM loans
+                WHERE book_id = ?
+                """;
+
+        return findLoansWithId(sql, bookId);
+    }
+
 }

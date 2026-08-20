@@ -15,4 +15,13 @@ public interface LoanRepository {
     Optional<Loan> findActiveLoanByBookId(int bookId);
 
     List<Loan> findAll();
+
+    List<Loan> findActiveLoans();
+
+    List<Loan> findOverdueLoans();
+
+    List<Loan> findByMemberId(int memberId);
+
+    List<Loan> findByBookId(int bookId);
+
 }

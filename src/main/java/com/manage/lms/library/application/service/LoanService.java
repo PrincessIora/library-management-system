@@ -11,6 +11,7 @@ import com.manage.lms.library.domain.repository.MemberRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class LoanService {
     private final BookRepository bookRepository;
@@ -91,4 +92,41 @@ public class LoanService {
 
         return loanRepository.update(loan);
     }
+
+    public List<Loan> getLoanHistory() {
+        return loanRepository.findAll();
+    }
+
+    public List<Loan> getActiveLoans() {
+        return loanRepository.findActiveLoans();
+    }
+
+    public List<Loan> getOverdueLoans() {
+        return loanRepository.findOverdueLoans();
+    }
+
+    public List<Loan> getMemberLoanHistory(int memberId) {
+
+        memberRepository.findById(memberId)
+                .orElseThrow(() ->
+                        new ValidationException(
+                                "Member with ID " + memberId + " was not found."
+                        )
+                );
+
+        return loanRepository.findByMemberId(memberId);
+    }
+
+    public List<Loan> getBookLoanHistory(int bookId) {
+
+        bookRepository.findById(bookId)
+                .orElseThrow(() ->
+                        new ValidationException(
+                                "Book with ID " + bookId + " was not found."
+                        )
+                );
+
+        return loanRepository.findByBookId(bookId);
+    }
+
 }
