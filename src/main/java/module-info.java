@@ -6,6 +6,7 @@ module com.manage.lms {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires java.sql;
+    requires jbcrypt;
 //    requires eu.hansolo.tilesfx;
 
     opens com.manage.lms to javafx.fxml;
