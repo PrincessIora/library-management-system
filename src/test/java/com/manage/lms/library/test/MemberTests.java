@@ -3,6 +3,7 @@ package com.manage.lms.library.test;
 import com.manage.lms.library.application.service.MemberService;
 import com.manage.lms.library.domain.exception.ValidationException;
 import com.manage.lms.library.domain.model.Member;
+import com.manage.lms.library.domain.repository.LoanRepository;
 import com.manage.lms.library.domain.repository.MemberRepository;
 import org.junit.jupiter.api.*;
 
@@ -12,10 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class MemberTests {
+    MemberService service =
+            new MemberService(new InMemoryMemberRepository(), new InMemoryLoanRepository() {
+            });
+
+
     @Test
     void createMemberCreatesMember() {
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
 
         Member member =
                 service.createMember("Twilight", "Sparkle");
@@ -25,8 +29,6 @@ public class MemberTests {
     }
     @Test
     void createMemberRejectsMissingFirstName() {
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
 
         assertThrows(
                 ValidationException.class,
@@ -36,8 +38,6 @@ public class MemberTests {
 
     @Test
     void createMemberRejectsMissingLastName() {
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
 
         assertThrows(
                 ValidationException.class,
@@ -47,8 +47,6 @@ public class MemberTests {
 
     @Test
     void createMemberRejectsNullFirstName() {
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
 
         assertThrows(
                 ValidationException.class,
@@ -58,8 +56,6 @@ public class MemberTests {
 
     @Test
     void createMemberRejectsNullLastName() {
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
 
         assertThrows(
                 ValidationException.class,
@@ -69,12 +65,6 @@ public class MemberTests {
 
     @Test
     void getMembersReturnsAllMembers() {
-
-        MemberRepository repository =
-                new InMemoryMemberRepository();
-
-        MemberService service =
-                new MemberService(repository);
 
         service.createMember("Twilight", "Sparkle");
         service.createMember("Rarity", "Belle");
@@ -86,12 +76,6 @@ public class MemberTests {
 
     @Test
     void getMemberReturnsMember() {
-
-        MemberRepository repository =
-                new InMemoryMemberRepository();
-
-        MemberService service =
-                new MemberService(repository);
 
         Member created =
                 service.createMember("Twilight", "Sparkle");
@@ -106,9 +90,6 @@ public class MemberTests {
     @Test
     void getMemberRejectsUnknownId() {
 
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
-
         assertThrows(
                 ValidationException.class,
                 () -> service.getMember(999)
@@ -118,9 +99,6 @@ public class MemberTests {
 
     @Test
     void createMembersHaveUniqueIds() {
-
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
 
         Member first =
                 service.createMember("Twilight", "Sparkle");
@@ -133,9 +111,6 @@ public class MemberTests {
 
     @Test
     void memberFullNameCombinesFirstAndLastName() {
-
-        MemberService service =
-                new MemberService(new InMemoryMemberRepository());
 
         Member member =
                 service.createMember("Twilight", "Sparkle");

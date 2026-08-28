@@ -1,6 +1,8 @@
 package com.manage.lms.library.test;
 
+import com.manage.lms.library.domain.model.Book;
 import com.manage.lms.library.domain.model.Member;
+import com.manage.lms.library.domain.model.User;
 import com.manage.lms.library.domain.repository.MemberRepository;
 
 import java.util.ArrayList;
@@ -29,5 +31,40 @@ public class InMemoryMemberRepository implements MemberRepository {
     @Override
     public List<Member> findAll() {
         return new ArrayList<>(members);
+    }
+
+    @Override
+    public Member update(Member member) {
+
+        for (int i = 0; i < members.size(); i++) {
+
+            if (members.get(i).getId() == member.getId()) {
+                members.set(i, member);
+                return member;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public void deleteById(int id) {
+            members.removeIf(
+                    member -> member.getId() == id
+            );
+        }
+
+
+
+    @Override
+    public List<Member> searchByName(String name){
+        return members.stream()
+                .filter(member ->
+                                (
+                        member.getFirstName().equals(name))
+                                        || ( member.getLastName().equals(name))
+                ).toList();
+
+
     }
 }

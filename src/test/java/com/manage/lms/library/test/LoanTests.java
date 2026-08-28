@@ -41,7 +41,7 @@ public class LoanTests {
                         );
 
         Member member =
-                new MemberService(members)
+                new MemberService(members,loans)
                         .createMember(
                                 "Twilight",
                                 "Sparkle"
@@ -113,7 +113,7 @@ public class LoanTests {
                         );
 
         Member member =
-                new MemberService(members)
+                new MemberService(members,loans)
                         .createMember(
                                 "Twilight",
                                 "Sparkle"
@@ -153,7 +153,7 @@ public class LoanTests {
                 new InMemoryLoanRepository();
 
         Member member =
-                new MemberService(members)
+                new MemberService(members,loans)
                         .createMember(
                                 "Twilight",
                                 "Sparkle"
@@ -234,7 +234,7 @@ public class LoanTests {
                         );
 
         Member member =
-                new MemberService(members)
+                new MemberService(members,loans)
                         .createMember(
                                 "Twilight",
                                 "Sparkle"
@@ -322,7 +322,7 @@ public class LoanTests {
                 new BookService(books);
 
         MemberService memberService =
-                new MemberService(members);
+                new MemberService(members,loans);
 
         LoanService service =
                 new LoanService(
@@ -386,7 +386,7 @@ public class LoanTests {
                 new BookService(books);
 
         MemberService memberService =
-                new MemberService(members);
+                new MemberService(members,loans);
 
         LoanService service =
                 new LoanService(
@@ -464,7 +464,7 @@ public class LoanTests {
                         );
 
         Member member =
-                new MemberService(members)
+                new MemberService(members,loans)
                         .createMember(
                                 "Twilight",
                                 "Sparkle"
@@ -525,7 +525,7 @@ public class LoanTests {
                         );
 
         Member member =
-                new MemberService(members)
+                new MemberService(members,loans)
                         .createMember(
                                 "Twilight",
                                 "Sparkle"
@@ -586,7 +586,7 @@ public class LoanTests {
                         );
 
         Member member =
-                new MemberService(members)
+                new MemberService(members,loans)
                         .createMember(
                                 "Twilight",
                                 "Sparkle"
@@ -637,7 +637,7 @@ public class LoanTests {
                 new BookService(books);
 
         MemberService memberService =
-                new MemberService(members);
+                new MemberService(members,loans);
 
         LoanService service =
                 new LoanService(
@@ -744,7 +744,7 @@ public class LoanTests {
                 new BookService(books);
 
         MemberService memberService =
-                new MemberService(members);
+                new MemberService(members,loans);
 
         LoanService service =
                 new LoanService(

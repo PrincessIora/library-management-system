@@ -1,5 +1,6 @@
 package com.manage.lms.library.test;
 
+import com.manage.lms.library.domain.model.Member;
 import com.manage.lms.library.domain.model.User;
 import com.manage.lms.library.domain.repository.UserRepository;
 
@@ -46,5 +47,27 @@ public class InMemoryUserRepository implements UserRepository {
     public List<User> findAll() {
 
         return new ArrayList<>(users);
+    }
+
+    @Override
+    public User update(User user) {
+
+            for (int i = 0; i < users.size(); i++) {
+
+                if (users.get(i).getId() == user.getId()) {
+                    users.set(i, user);
+                    return user;
+                }
+            }
+
+            return null;
+        }
+
+
+    @Override
+    public void deleteById(int id) {
+        users.removeIf(
+                user -> user.getId() == id
+        );
     }
 }

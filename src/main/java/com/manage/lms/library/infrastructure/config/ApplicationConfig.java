@@ -27,11 +27,6 @@ import java.sql.SQLException;
 @Configuration
 public class ApplicationConfig {
 
-    public ApplicationConfig(PasswordEncoder encoder, JwtService jwtservice) {
-        this.encoder = encoder;
-        this.jwtService= jwtservice;
-    }
-
     @Bean
     public Connection databaseConnection(
             @Value("${database.username}") String username,
@@ -106,19 +101,27 @@ public class ApplicationConfig {
         );
     }
 
-    private final PasswordEncoder encoder;
-    private final JwtService jwtService;
     @Bean
     public AuthenticationService authenticationService(
-            UserRepository repository
+            UserRepository repository,
+            PasswordEncoder encoder,
+            JwtService jwtService
     ) {
-        return new AuthenticationService(repository, encoder, jwtService);
+        return new AuthenticationService(
+                repository,
+                encoder,
+                jwtService
+        );
     }
 
     @Bean
     public UserService userService(
-            UserRepository repository
+            UserRepository repository,
+            PasswordEncoder encoder
     ) {
-        return new UserService(repository, encoder);
+        return new UserService(
+                repository,
+                encoder
+        );
     }
 }

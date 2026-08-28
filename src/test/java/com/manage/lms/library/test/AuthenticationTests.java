@@ -2,15 +2,44 @@ package com.manage.lms.library.test;
 
 import com.manage.lms.library.application.service.AuthenticationService;
 import com.manage.lms.library.application.service.UserService;
+import com.manage.lms.library.domain.exception.AuthenticationException;
 import com.manage.lms.library.domain.exception.ValidationException;
 import com.manage.lms.library.domain.model.User;
 import com.manage.lms.library.domain.model.UserRole;
 import com.manage.lms.library.domain.repository.UserRepository;
+import com.manage.lms.library.infrastructure.security.JwtService;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 public class AuthenticationTests {
+
+    private String jwtSecret = "your-very-long-secret-key-that-is-at-least-32-characters-long";
+
+    private long jwtExpiration = 3600000;
+
+    private PasswordEncoder passwordEncoder;
+    private JwtService jwtService;
+
+    @BeforeEach
+    void setUp() {
+        passwordEncoder = new BCryptPasswordEncoder();
+
+        jwtService = new JwtService(
+                jwtSecret,
+                jwtExpiration
+        );
+    }
 
     @Test
     void authenticateValidUser() {
@@ -19,7 +48,7 @@ public class AuthenticationTests {
                 new InMemoryUserRepository();
 
         UserService userService =
-                new UserService(repository);
+                new UserService(repository, passwordEncoder);
 
         userService.createUser(
                 "twilight",
@@ -28,25 +57,20 @@ public class AuthenticationTests {
         );
 
         AuthenticationService service =
-                new AuthenticationService(repository);
+                new AuthenticationService(
+                        repository,
+                        passwordEncoder,
+                        jwtService
+                );
 
-        User authenticated =
+        String token =
                 service.authenticate(
                         "twilight",
                         "password123"
                 );
 
-        assertNotNull(authenticated);
-
-        assertEquals(
-                "twilight",
-                authenticated.getUsername()
-        );
-
-        assertEquals(
-                UserRole.USER,
-                authenticated.getRole()
-        );
+        assertNotNull(token);
+        assertFalse(token.isBlank());
     }
 
 
@@ -57,7 +81,7 @@ public class AuthenticationTests {
                 new InMemoryUserRepository();
 
         UserService userService =
-                new UserService(repository);
+                new UserService(repository, passwordEncoder);
 
         userService.createUser(
                 "celestia",
@@ -66,20 +90,20 @@ public class AuthenticationTests {
         );
 
         AuthenticationService service =
-                new AuthenticationService(repository);
+                new AuthenticationService(
+                        repository,
+                        passwordEncoder,
+                        jwtService
+                );
 
-        User authenticated =
+        String token =
                 service.authenticate(
                         "celestia",
                         "admin123"
                 );
 
-        assertNotNull(authenticated);
-
-        assertEquals(
-                UserRole.ADMIN,
-                authenticated.getRole()
-        );
+        assertNotNull(token);
+        assertFalse(token.isBlank());
     }
 
 
@@ -90,10 +114,14 @@ public class AuthenticationTests {
                 new InMemoryUserRepository();
 
         AuthenticationService service =
-                new AuthenticationService(repository);
+                new AuthenticationService(
+                        repository,
+                        passwordEncoder,
+                        jwtService
+                );
 
         assertThrows(
-                ValidationException.class,
+                AuthenticationException.class,
                 () -> service.authenticate(
                         "unknown",
                         "password123"
@@ -109,7 +137,7 @@ public class AuthenticationTests {
                 new InMemoryUserRepository();
 
         UserService userService =
-                new UserService(repository);
+                new UserService(repository, passwordEncoder);
 
         userService.createUser(
                 "twilight",
@@ -118,10 +146,14 @@ public class AuthenticationTests {
         );
 
         AuthenticationService service =
-                new AuthenticationService(repository);
+                new AuthenticationService(
+                        repository,
+                        passwordEncoder,
+                        jwtService
+                );
 
         assertThrows(
-                ValidationException.class,
+                AuthenticationException.class,
                 () -> service.authenticate(
                         "twilight",
                         "wrongPassword"
@@ -135,7 +167,9 @@ public class AuthenticationTests {
 
         AuthenticationService service =
                 new AuthenticationService(
-                        new InMemoryUserRepository()
+                        new InMemoryUserRepository(),
+                        passwordEncoder,
+                        jwtService
                 );
 
         assertThrows(
@@ -153,7 +187,9 @@ public class AuthenticationTests {
 
         AuthenticationService service =
                 new AuthenticationService(
-                        new InMemoryUserRepository()
+                        new InMemoryUserRepository(),
+                        passwordEncoder,
+                        jwtService
                 );
 
         assertThrows(
@@ -167,13 +203,13 @@ public class AuthenticationTests {
 
 
     @Test
-    void authenticateReturnsAdminRole() {
+    void authenticateReturnsJwtForAdmin() {
 
         UserRepository repository =
                 new InMemoryUserRepository();
 
         UserService userService =
-                new UserService(repository);
+                new UserService(repository, passwordEncoder);
 
         userService.createUser(
                 "admin",
@@ -182,18 +218,20 @@ public class AuthenticationTests {
         );
 
         AuthenticationService service =
-                new AuthenticationService(repository);
+                new AuthenticationService(
+                        repository,
+                        passwordEncoder,
+                        jwtService
+                );
 
-        User authenticated =
+        String token =
                 service.authenticate(
                         "admin",
                         "password"
                 );
 
-        assertEquals(
-                UserRole.ADMIN,
-                authenticated.getRole()
-        );
+        assertNotNull(token);
+        assertFalse(token.isBlank());
     }
 
 
@@ -204,7 +242,7 @@ public class AuthenticationTests {
                 new InMemoryUserRepository();
 
         UserService userService =
-                new UserService(repository);
+                new UserService(repository, passwordEncoder);
 
         User user =
                 userService.createUser(
@@ -221,5 +259,11 @@ public class AuthenticationTests {
         assertTrue(
                 user.getPassword().startsWith("$2")
         );
+    }
+
+
+    @Configuration
+    @PropertySource("classpath:application.properties")
+    static class TestConfig {
     }
 }
