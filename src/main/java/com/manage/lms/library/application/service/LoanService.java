@@ -8,11 +8,13 @@ import com.manage.lms.library.domain.model.Member;
 import com.manage.lms.library.domain.repository.BookRepository;
 import com.manage.lms.library.domain.repository.LoanRepository;
 import com.manage.lms.library.domain.repository.MemberRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class LoanService {
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;

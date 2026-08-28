@@ -11,4 +11,11 @@ public interface MemberRepository {
     Optional<Member> findById(int id);
 
     List<Member> findAll();
+
+    Member update(Member member);
+
+    void deleteById(int id);
+
+    List<Member> searchByName(String name);
+
 }

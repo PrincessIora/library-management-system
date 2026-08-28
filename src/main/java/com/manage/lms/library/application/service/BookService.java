@@ -4,9 +4,12 @@ import com.manage.lms.library.domain.exception.ValidationException;
 import com.manage.lms.library.domain.model.Book;
 import com.manage.lms.library.domain.model.BookStatus;
 import com.manage.lms.library.domain.repository.BookRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.Comparator;
 import java.util.List;
 
+@Service
 public class BookService {
 
     private final BookRepository bookRepository;

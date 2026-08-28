@@ -143,6 +143,59 @@ public class MySQLUserRepository implements UserRepository {
         }
     }
 
+    @Override
+    public User update(User user) {
+
+        String sql = """
+                UPDATE users
+                SET username = ?,
+                    password = ?,
+                    role = ?
+                WHERE id = ?
+                """;
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
+
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getRole().name());
+            statement.setInt(4,user.getId());
+            statement.executeUpdate();
+
+            return user;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                    "Unable to update user.",
+                    e
+            );
+        }
+    }
+
+
+    @Override
+    public void deleteById(int id) {
+
+        String sql = """
+                DELETE FROM users
+                WHERE id = ?
+                """;
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
+
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                    "Unable to delete user.",
+                    e
+            );
+        }
+    }
+
     private User mapUser(ResultSet result)
             throws SQLException {
 
