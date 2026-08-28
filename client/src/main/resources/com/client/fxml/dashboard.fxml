@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.client.controller.DashboardController"
+        styleClass="dashboard-root">
+
+    <!-- HEADER -->
+
+    <top>
+
+        <HBox
+                alignment="CENTER_LEFT"
+                spacing="15"
+                styleClass="dashboard-header">
+
+            <padding>
+                <Insets
+                        top="18"
+                        right="25"
+                        bottom="18"
+                        left="25"/>
+            </padding>
+
+            <Label
+                    text="📚"
+                    styleClass="dashboard-logo"/>
+
+            <VBox
+                    spacing="2"
+                    HBox.hgrow="ALWAYS">
+
+                <Label
+                        text="Library Management System"
+                        styleClass="dashboard-title"/>
+
+                <Label
+                        text="Library Dashboard"
+                        styleClass="dashboard-subtitle"/>
+
+            </VBox>
+
+            <Label
+                    fx:id="userLabel"
+                    text="👤 Admin"
+                    styleClass="user-label"/>
+
+            <Button
+                    text="Log Out"
+                    onAction="#onLogoutButtonClick"
+                    styleClass="logout-button"/>
+
+        </HBox>
+
+    </top>
+
+
+    <!-- SIDEBAR + CONTENT -->
+
+    <center>
+
+        <HBox>
+
+            <!-- SIDEBAR -->
+
+            <VBox
+                    prefWidth="210"
+                    spacing="10"
+                    styleClass="sidebar">
+
+                <padding>
+                    <Insets
+                            top="25"
+                            right="15"
+                            bottom="25"
+                            left="15"/>
+                </padding>
+
+
+                <Label
+                        text="Navigation"
+                        styleClass="sidebar-title"/>
+
+
+                <Button
+                        text="🏠  Dashboard"
+                        onAction="#onDashboardButtonClick"
+                        maxWidth="Infinity"
+                        styleClass="navigation-button"/>
+
+
+                <Button
+                        text="📖  Books"
+                        onAction="#onBooksButtonClick"
+                        maxWidth="Infinity"
+                        styleClass="navigation-button"/>
+
+
+                <Button
+                        text="👥  Members"
+                        onAction="#onMembersButtonClick"
+                        maxWidth="Infinity"
+                        styleClass="navigation-button"/>
+
+
+                <Button
+                        text="📋  Loans"
+                        onAction="#onLoansButtonClick"
+                        maxWidth="Infinity"
+                        styleClass="navigation-button"/>
+
+
+                <Button
+                        fx:id="usersButton"
+                        text="🛡  Users"
+                        onAction="#onUsersButtonClick"
+                        maxWidth="Infinity"
+                        styleClass="navigation-button"/>
+
+
+                <VBox
+                        VBox.vgrow="ALWAYS"/>
+
+
+                <Button
+                        text="🚪  Log Out"
+                        onAction="#onLogoutButtonClick"
+                        maxWidth="Infinity"
+                        styleClass="navigation-logout-button"/>
+
+            </VBox>
+
+
+            <!-- CONTENT AREA -->
+
+            <StackPane
+                    fx:id="contentArea"
+                    HBox.hgrow="ALWAYS"
+                    styleClass="content-area">
+
+                <VBox
+                        alignment="CENTER"
+                        spacing="10">
+
+                    <Label
+                            text="Welcome back! ✨"
+                            styleClass="welcome-title"/>
+
+                    <Label
+                            text="Select an option from the navigation menu."
+                            styleClass="welcome-subtitle"/>
+
+                </VBox>
+
+            </StackPane>
+
+        </HBox>
+
+    </center>
+
+</BorderPane>

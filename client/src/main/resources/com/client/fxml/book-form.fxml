@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.client.controller.BookFormController"
+        styleClass="book-form-root">
+
+    <center>
+
+        <VBox
+                maxWidth="600"
+                spacing="25"
+                styleClass="book-form-card">
+
+            <padding>
+                <Insets
+                        top="40"
+                        right="45"
+                        bottom="40"
+                        left="45"/>
+            </padding>
+
+            <VBox spacing="5">
+
+                <Label
+                        fx:id="formTitle"
+                        text="Add Book"
+                        styleClass="form-title"/>
+
+                <Label
+                        fx:id="formSubtitle"
+                        text="Add a new book to your library."
+                        styleClass="form-subtitle"/>
+
+            </VBox>
+
+            <VBox spacing="8">
+
+                <Label
+                        text="Title"
+                        styleClass="field-label"/>
+
+                <TextField
+                        fx:id="titleField"
+                        promptText="Enter the book title"
+                        prefHeight="45"
+                        styleClass="form-field"/>
+
+            </VBox>
+
+            <VBox spacing="8">
+
+                <Label
+                        text="Author"
+                        styleClass="field-label"/>
+
+                <TextField
+                        fx:id="authorField"
+                        promptText="Enter the author's name"
+                        prefHeight="45"
+                        styleClass="form-field"/>
+
+            </VBox>
+
+            <VBox spacing="8">
+
+                <Label
+                        text="Publication Year"
+                        styleClass="field-label"/>
+
+                <TextField
+                        fx:id="yearField"
+                        promptText="Enter the publication year"
+                        prefHeight="45"
+                        styleClass="form-field"/>
+
+            </VBox>
+
+            <Label
+                    fx:id="errorLabel"
+                    wrapText="true"
+                    styleClass="form-error"/>
+
+            <HBox
+                    alignment="CENTER_RIGHT"
+                    spacing="10">
+
+                <Button
+                        text="Cancel"
+                        onAction="#onCancelButtonClick"
+                        prefHeight="45"
+                        styleClass="secondary-button"/>
+
+                <Button
+                        text="Save Book"
+                        onAction="#onSaveButtonClick"
+                        prefHeight="45"
+                        styleClass="primary-button"/>
+
+            </HBox>
+
+        </VBox>
+
+    </center>
+
+</BorderPane>

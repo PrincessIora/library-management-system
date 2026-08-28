@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.client.controller.LoanController">
+
+    <top>
+        <VBox spacing="8">
+            <padding>
+                <Insets top="24" right="24" bottom="16" left="24"/>
+            </padding>
+
+            <Label text="Loans"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+
+            <Label text="Manage borrowed books and returns."
+                   style="-fx-font-size: 14px;"/>
+
+            <HBox spacing="10">
+                <TextField fx:id="searchField"
+                           promptText="Search loans..."
+                           HBox.hgrow="ALWAYS"/>
+
+                <Button text="Search"
+                        onAction="#onSearchButtonClick"/>
+
+                <Button text="Refresh"
+                        onAction="#onRefreshButtonClick"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="12">
+            <padding>
+                <Insets top="0" right="24" bottom="24" left="24"/>
+            </padding>
+
+            <Label fx:id="messageLabel"
+                   text=""
+                   wrapText="true"
+                   style="-fx-font-size: 13px;"/>
+
+            <TableView fx:id="loanTable"
+                       VBox.vgrow="ALWAYS">
+
+                <columns>
+
+                    <TableColumn fx:id="idColumn"
+                                 text="Loan ID"
+                                 prefWidth="80"/>
+
+                    <TableColumn fx:id="bookColumn"
+                                 text="Book"
+                                 prefWidth="180"/>
+
+                    <TableColumn fx:id="memberColumn"
+                                 text="Member"
+                                 prefWidth="180"/>
+
+                    <TableColumn fx:id="borrowedColumn"
+                                 text="Borrowed"
+                                 prefWidth="140"/>
+
+                    <TableColumn fx:id="dueDateColumn"
+                                 text="Due Date"
+                                 prefWidth="140"/>
+
+                    <TableColumn fx:id="returnedColumn"
+                                 text="Returned"
+                                 prefWidth="140"/>
+
+                    <TableColumn fx:id="statusColumn"
+                                 text="Status"
+                                 prefWidth="120"/>
+
+                </columns>
+
+            </TableView>
+
+            <HBox spacing="10">
+
+                <Button text="Borrow Book"
+                        onAction="#onBorrowButtonClick"/>
+
+                <Button text="Return Book"
+                        onAction="#onReturnButtonClick"/>
+
+            </HBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>

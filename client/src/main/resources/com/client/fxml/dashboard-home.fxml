@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.client.controller.DashboardHomeController"
+        prefHeight="600.0"
+        prefWidth="900.0"
+        styleClass="dashboard-home">
+
+    <ScrollPane
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            AnchorPane.topAnchor="0"
+            AnchorPane.rightAnchor="0"
+            AnchorPane.bottomAnchor="0"
+            AnchorPane.leftAnchor="0"
+            styleClass="dashboard-scroll">
+
+        <VBox
+                spacing="25"
+                styleClass="dashboard-content">
+
+            <padding>
+                <Insets
+                        top="30"
+                        right="35"
+                        bottom="30"
+                        left="35"/>
+            </padding>
+
+
+            <!-- WELCOME -->
+
+            <VBox spacing="5">
+
+                <Label
+                        text="Welcome back! ✨"
+                        styleClass="welcome-title"/>
+
+                <Label
+                        text="Here's what's happening in your library today."
+                        styleClass="welcome-subtitle"/>
+
+            </VBox>
+
+
+            <!-- STATISTICS -->
+
+            <GridPane
+                    hgap="20"
+                    vgap="20">
+
+                <columnConstraints>
+
+                    <ColumnConstraints
+                            hgrow="ALWAYS"/>
+
+                    <ColumnConstraints
+                            hgrow="ALWAYS"/>
+
+                    <ColumnConstraints
+                            hgrow="ALWAYS"/>
+
+                    <ColumnConstraints
+                            hgrow="ALWAYS"/>
+
+                </columnConstraints>
+
+
+                <!-- BOOKS -->
+
+                <VBox
+                        GridPane.columnIndex="0"
+                        GridPane.rowIndex="0"
+                        spacing="8"
+                        styleClass="stat-card">
+
+                    <Label
+                            text="📖"
+                            styleClass="stat-icon"/>
+
+                    <Label
+                            text="Books"
+                            styleClass="stat-title"/>
+
+                    <Label
+                            fx:id="booksCountLabel"
+                            text="..."
+                            styleClass="stat-value"/>
+
+                </VBox>
+
+
+                <!-- MEMBERS -->
+
+                <VBox
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="0"
+                        spacing="8"
+                        styleClass="stat-card">
+
+                    <Label
+                            text="👥"
+                            styleClass="stat-icon"/>
+
+                    <Label
+                            text="Members"
+                            styleClass="stat-title"/>
+
+                    <Label
+                            fx:id="membersCountLabel"
+                            text="..."
+                            styleClass="stat-value"/>
+
+                </VBox>
+
+
+                <!-- ACTIVE LOANS -->
+
+                <VBox
+                        GridPane.columnIndex="2"
+                        GridPane.rowIndex="0"
+                        spacing="8"
+                        styleClass="stat-card">
+
+                    <Label
+                            text="📋"
+                            styleClass="stat-icon"/>
+
+                    <Label
+                            text="Active Loans"
+                            styleClass="stat-title"/>
+
+                    <Label
+                            fx:id="activeLoansCountLabel"
+                            text="..."
+                            styleClass="stat-value"/>
+
+                </VBox>
+
+
+                <!-- OVERDUE -->
+
+                <VBox
+                        GridPane.columnIndex="3"
+                        GridPane.rowIndex="0"
+                        spacing="8"
+                        styleClass="stat-card overdue-stat-card">
+
+                    <Label
+                            text="⚠️"
+                            styleClass="stat-icon"/>
+
+                    <Label
+                            text="Overdue"
+                            styleClass="stat-title"/>
+
+                    <Label
+                            fx:id="overdueCountLabel"
+                            text="..."
+                            styleClass="stat-value"/>
+
+                </VBox>
+
+            </GridPane>
+
+
+            <!-- RECENT LOANS -->
+
+            <VBox
+                    spacing="12"
+                    styleClass="dashboard-section">
+
+                <VBox spacing="3">
+
+                    <Label
+                            text="Recent Loans"
+                            styleClass="section-title"/>
+
+                    <Label
+                            text="The latest borrowing activity in the library."
+                            styleClass="section-description"/>
+
+                </VBox>
+
+
+                <GridPane
+                        fx:id="recentLoansGrid"
+                        hgap="15"
+                        vgap="10"
+                        styleClass="loan-table">
+
+                    <columnConstraints>
+
+                        <ColumnConstraints
+                                percentWidth="28"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="20"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="20"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="17"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="15"
+                                hgrow="ALWAYS"/>
+
+                    </columnConstraints>
+
+                </GridPane>
+
+            </VBox>
+
+
+            <!-- OVERDUE LOANS -->
+
+            <VBox
+                    spacing="12"
+                    styleClass="dashboard-section overdue-section">
+
+                <VBox spacing="3">
+
+                    <Label
+                            text="Overdue Loans 🚨"
+                            styleClass="section-title"/>
+
+                    <Label
+                            text="Books that have passed their due date and have not been returned."
+                            styleClass="section-description"/>
+
+                </VBox>
+
+
+                <GridPane
+                        fx:id="overdueLoansGrid"
+                        hgap="15"
+                        vgap="10"
+                        styleClass="loan-table">
+
+                    <columnConstraints>
+
+                        <ColumnConstraints
+                                percentWidth="28"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="20"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="20"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="17"
+                                hgrow="ALWAYS"/>
+
+                        <ColumnConstraints
+                                percentWidth="15"
+                                hgrow="ALWAYS"/>
+
+                    </columnConstraints>
+
+                </GridPane>
+
+            </VBox>
+
+        </VBox>
+
+    </ScrollPane>
+
+</AnchorPane>

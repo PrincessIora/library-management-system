@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.control.ComboBox?>
+
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.PasswordField?>
+
+<?import javafx.scene.control.TableColumn?>
+
+<?import javafx.scene.control.TableView?>
+
+<?import javafx.scene.control.TextField?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.client.controller.UserController" styleClass="page-root">
+
+    <padding>
+        <Insets
+                top="30"
+                right="35"
+                bottom="30"
+                left="35"/>
+    </padding>
+
+
+    <!-- ========================================= -->
+    <!-- HEADER                                    -->
+    <!-- ========================================= -->
+
+    <top>
+
+        <VBox spacing="5">
+
+            <Label
+                    text="User Management"
+                    styleClass="page-title"/>
+
+            <Label
+                    text="Manage library accounts, roles, and access."
+                    styleClass="page-subtitle"/>
+
+        </VBox>
+
+    </top>
+
+
+    <!-- ========================================= -->
+    <!-- MAIN CONTENT                              -->
+    <!-- ========================================= -->
+
+    <center>
+
+        <VBox
+                spacing="20"
+                VBox.vgrow="ALWAYS">
+
+
+            <!-- ================================= -->
+            <!-- SEARCH + ACTIONS                  -->
+            <!-- ================================= -->
+
+            <VBox
+                    spacing="12"
+                    styleClass="content-card">
+
+                <!-- SEARCH -->
+
+                <HBox spacing="10">
+
+                    <TextField
+                            fx:id="searchField"
+                            promptText="Search by username..."
+                            prefHeight="40"
+                            HBox.hgrow="ALWAYS"/>
+
+                    <Button
+                            text="🔍 Search"
+                            onAction="#onSearchButtonClick"
+                            prefHeight="40"
+                            styleClass="secondary-button"/>
+
+                </HBox>
+
+
+                <!-- USER ACTIONS -->
+
+                <HBox spacing="10">
+
+                    <Button
+                            text="＋ Add User"
+                            onAction="#onAddUserButtonClick"
+                            styleClass="primary-button"/>
+
+                    <Button
+                            text="✎ Edit"
+                            onAction="#onEditUserButtonClick"
+                            styleClass="secondary-button"/>
+
+                    <Button
+                            text="🗑 Delete"
+                            onAction="#onDeleteUserButtonClick"
+                            styleClass="danger-button"/>
+
+                </HBox>
+
+            </VBox>
+
+
+            <!-- ================================= -->
+            <!-- USER TABLE                        -->
+            <!-- ================================= -->
+
+            <VBox
+                    spacing="10"
+                    styleClass="content-card"
+                    VBox.vgrow="ALWAYS">
+
+                <Label
+                        text="Library Users"
+                        styleClass="section-title"/>
+
+                <TableView
+                        fx:id="userTable"
+                        VBox.vgrow="ALWAYS"
+                        minHeight="150">
+
+                    <columns>
+
+                        <!-- ID -->
+
+                        <TableColumn
+                                fx:id="idColumn"
+                                text="ID"
+                                prefWidth="80"
+                                minWidth="70"/>
+
+
+                        <!-- USERNAME -->
+
+                        <TableColumn
+                                fx:id="usernameColumn"
+                                text="Username"
+                                prefWidth="300"
+                                minWidth="150"/>
+
+
+                        <!-- ROLE -->
+
+                        <TableColumn
+                                fx:id="roleColumn"
+                                text="Role"
+                                prefWidth="180"
+                                minWidth="120"/>
+
+                    </columns>
+
+                </TableView>
+
+            </VBox>
+
+
+            <!-- ================================= -->
+            <!-- USER FORM                         -->
+            <!-- ================================= -->
+
+            <VBox
+                    spacing="15"
+                    styleClass="content-card">
+
+                <Label
+                        text="User Details"
+                        styleClass="section-title"/>
+
+
+                <!-- ================================= -->
+                <!-- FORM FIELDS                      -->
+                <!-- ================================= -->
+
+                <HBox spacing="15">
+
+
+                    <!-- USERNAME -->
+
+                    <VBox
+                            spacing="6"
+                            HBox.hgrow="ALWAYS">
+
+                        <Label
+                                text="Username"
+                                styleClass="field-label"/>
+
+                        <TextField
+                                fx:id="usernameField"
+                                promptText="Username"
+                                prefHeight="40"/>
+
+                    </VBox>
+
+
+                    <!-- PASSWORD -->
+
+                    <VBox
+                            spacing="6"
+                            HBox.hgrow="ALWAYS">
+
+                        <Label
+                                text="Password"
+                                styleClass="field-label"/>
+
+                        <PasswordField
+                                fx:id="passwordField"
+                                promptText="Password"
+                                prefHeight="40"/>
+
+                    </VBox>
+
+
+                    <!-- ROLE -->
+
+                    <VBox
+                            spacing="6"
+                            HBox.hgrow="ALWAYS">
+
+                        <Label
+                                text="Role"
+                                styleClass="field-label"/>
+
+                        <ComboBox
+                                fx:id="roleComboBox"
+                                prefHeight="40"
+                                maxWidth="Infinity"/>
+
+                    </VBox>
+
+                </HBox>
+
+
+                <!-- ================================= -->
+                <!-- FORM ACTIONS                      -->
+                <!-- ================================= -->
+
+                <HBox
+                        spacing="10"
+                        alignment="CENTER_LEFT">
+
+                    <Button
+                            text="Save User"
+                            onAction="#onSaveButtonClick"
+                            styleClass="primary-button"/>
+
+                    <Button
+                            text="Clear"
+                            onAction="#onClearButtonClick"
+                            styleClass="secondary-button"/>
+
+                    <Label
+                            fx:id="messageLabel"
+                            styleClass="message-label"
+                            HBox.hgrow="ALWAYS"/>
+
+                </HBox>
+
+            </VBox>
+
+        </VBox>
+
+    </center>
+
+</BorderPane>
